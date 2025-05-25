@@ -67,15 +67,15 @@ def predict_tflite(tflite_model, x_test):
 
 """#Read training, validation and test data"""
 
-data_train = pd.read_csv(r"G:\code\step code（q）\train_features(MINE).csv")
-data_labels = pd.read_csv(r"G:\code\step code（q）\train_label(MINE).csv")
+data_train = pd.read_csv(r"G:\code\letter code（q）\train_features(MINE).csv")
+data_labels = pd.read_csv(r"G:\code\letter code（q）\train_label(MINE).csv")
 data = pd.concat([data_train, data_labels], axis=1)
 data = shuffle(data)
 print(data.shape)
 # print(data.head)
 
-x = data.drop('700', axis=1)
-y = data['700']
+x = data.drop('400', axis=1)
+y = data['400']
 print(data_train.shape, data_labels.shape)
 x_train, x_validate, y_train, y_validate = train_test_split(x, y, test_size=0.20)
 
@@ -87,11 +87,11 @@ x_train = scaler.transform(x_train)
 x_validate = scaler.transform(x_validate)
 
 
-test_data = pd.read_csv(r"G:\code\step code（q）\test_features(MINE).csv")
-test_label = pd.read_csv(r"G:\code\step code（q）\test_label(MINE).csv")
+test_data = pd.read_csv(r"G:\code\letter code（q）\test_features(MINE).csv")
+test_label = pd.read_csv(r"G:\code\letter code（q）\test_label(MINE).csv")
 test_data = pd.concat([test_data, test_label], axis=1)
-x_test = test_data.drop('700', axis=1)
-y_test = test_data['700']
+x_test = test_data.drop('400', axis=1)
+y_test = test_data['400']
 
 # 例如，你可以从 x_train 和 x_validate 中删除额外的特征，以确保输入数据的维度为（None，400）
 # x_test_processed = x_test[:, :400]
@@ -103,8 +103,8 @@ x_test = scaler.transform(x_test)
 
 """#Create a model"""
 model = tf.keras.Sequential()
-model.add(layers.Dense(8, activation='relu', input_shape=(700,)))
-model.add(layers.Dense(4, activation='softmax'))
+model.add(layers.Dense(20, activation='relu', input_shape=(400,)))
+model.add(layers.Dense(10, activation='softmax'))
 # model.add(layers.Dropout(0.15))
 model.summary()
 
